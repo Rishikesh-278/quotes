@@ -41,13 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: true,
           backgroundColor: Colors.red,
         ),
-        body: Column(
-          children: <Widget> [
-            TestText(),
-
-          ],
-        ),
-        //NoName(),
+        body: TestText(),
       ),
     );
   }
@@ -80,6 +74,8 @@ Widget TestText() {
     ],
   );
 }
+}
+
 
 /*
 class TestWidget extends StatefulWidget {
