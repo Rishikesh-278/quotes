@@ -16,33 +16,53 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      displacement: 250,
-      backgroundColor: Colors.yellow,
-      color: Colors.red,
-      strokeWidth: 3,
-      triggerMode: RefreshIndicatorTriggerMode.onEdge,
-      onRefresh: () async {
-        var url = Uri.parse(
-            'https://goquotes-api.herokuapp.com/api/v1/random?count=1');
-        var response = await http.get(url);
-        print('Response status: ${response.statusCode}');
-        print('Response body: ${response.body}');
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Home screen"),
+        centerTitle: true,
+        backgroundColor: Colors.red,
+      ),
+      body: RefreshIndicator(
+        displacement: 250,
+        backgroundColor: Colors.yellow,
+        color: Colors.red,
+        strokeWidth: 3,
+        triggerMode: RefreshIndicatorTriggerMode.onEdge,
+        onRefresh: () async {
+          var url = Uri.parse(
+              'https://goquotes-api.herokuapp.com/api/v1/random?count=1');
+          var response = await http.get(url);
+          print('Response status: ${response.statusCode}');
+          print('Response body: ${response.body}');
 
-        var data = jsonDecode(response.body);
-        quote = data["quotes"][0]["text"];
+          var data = jsonDecode(response.body);
+          quote = data["quotes"][0]["text"];
 
-        await Future.delayed(Duration(microseconds: 1500));
+          await Future.delayed(Duration(microseconds: 1500));
 
-        setState(() {});
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Home screen"),
-          centerTitle: true,
-          backgroundColor: Colors.red,
+          setState(() {});
+        },
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Container(
+                    height: 500,
+                    color: Colors.blue,
+                      child: Text(quote),
+                  ),
+                  Container(
+                    height: 500,
+                    color: Colors.blue,
+                    child: Text(quote),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
-        body: TestText(),
       ),
     );
   }
@@ -69,14 +89,9 @@ Widget TestText() {
       Container(
         child: Text(quote),
       ),
-      Container(
-        child: Text(quote),
-      ),
     ],
   );
 }
-
-
 
 /*
 class TestWidget extends StatefulWidget {
